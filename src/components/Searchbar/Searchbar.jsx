@@ -1,5 +1,6 @@
 import '../../styles.css';
 import { Component } from 'react';
+import { ImSearch } from 'react-icons/im';
 
 class SearchBar extends Component {
   state = {
@@ -19,14 +20,14 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.onSubmit}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
+      <header className="Searchbar">
+        <form className="SearchForm" onSubmit={this.onSubmit}>
+          <button type="submit" className="SearchForm-button">
+            <ImSearch className="SearchForm-button-label" />
           </button>
 
           <input
-            className="input"
+            className="SearchForm-input"
             type="text"
             autoComplete="off"
             autoFocus
