@@ -7,15 +7,17 @@ import LoadButton from 'components/Button/Button';
 
 const KEY = '40066874-c684fea7be1806c3f735d28e1';
 axios.defaults.baseURL = 'https://pixabay.com/api';
+const PER_PAGE = 12;
 
 export class App extends Component {
-  state = { request: '', images: [], total: 0, page: 1 };
+  state = { request: '', images: [], total: 0, page: 1, loaded: 0 };
 
   getImages = async (request, page) => {
     const { data } = await axios.get(
-      `?q=${request}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
+      `?q=${request}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`
     );
     const newImages = [...this.state.images, ...data.hits];
+
     console.log('🚀 ~ newImages:', newImages);
 
     this.setState({ images: newImages, total: data.total });
@@ -26,8 +28,8 @@ export class App extends Component {
     const changedRequest = prevState.request !== request;
     const changedPage = prevState.page !== page;
     if (changedRequest) {
-      this.setState({ images: [] });
-      this.getImages(request, 1);
+      this.setState({ images: [], page: 1 });
+      this.getImages(request, page);
     }
     if (changedPage && !changedRequest) {
       this.getImages(request, page);
