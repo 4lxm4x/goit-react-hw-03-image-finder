@@ -50,7 +50,13 @@ export class App extends Component {
       <div className="App">
         <SearchBar onSubmit={this.onSearchSubmit} />
         <ImageGallery images={this.state.images} />
-        {this.state.request && <LoadButton onLoadMore={this.loadMore} />}
+        {this.state.request &&
+          this.state.images.length !== this.state.total && (
+            <LoadButton
+              onLoadMore={this.loadMore}
+              disabled={this.state.images.length === this.state.total}
+            />
+          )}
       </div>
     );
   }
