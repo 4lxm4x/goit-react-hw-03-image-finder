@@ -19,8 +19,6 @@ export class App extends Component {
     );
     const newImages = [...this.state.images, ...data.hits];
 
-    console.log('🚀 ~ newImages:', newImages);
-
     this.setState({ images: newImages, total: data.total, loading: false });
   };
 
@@ -29,7 +27,6 @@ export class App extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.loading);
     const { request, page } = this.state;
     const changedRequest = prevState.request !== request;
     const changedPage = prevState.page !== page;
