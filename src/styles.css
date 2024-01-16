@@ -200,3 +200,9 @@ img {
 .Button:focus {
   background-color: #303f9f;
 }
+
+.color-ring-wrapper {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
