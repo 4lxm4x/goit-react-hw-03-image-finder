@@ -4,7 +4,6 @@ import { Component } from 'react';
 import axios from 'axios';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import LoadButton from 'components/Button/Button';
-
 import { ColorRing } from 'react-loader-spinner';
 
 const KEY = '40066874-c684fea7be1806c3f735d28e1';
@@ -66,10 +65,7 @@ export class App extends Component {
       <div className="App">
         <SearchBar onSubmit={this.onSearchSubmit} />
         <ImageGallery images={images} />
-        <ColorRing
-          wrapperClass="color-ring-wrapper"
-          visible={loading}
-        ></ColorRing>
+        <ColorRing wrapperClass="color-ring-wrapper" visible={loading} />
         {request && !loading && images.length !== total && (
           <LoadButton
             onLoadMore={this.loadMore}
