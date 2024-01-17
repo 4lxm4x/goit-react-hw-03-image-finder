@@ -21,11 +21,7 @@ class Modal extends Component {
         onKeyDown={this.onEscDown}
       >
         <div className="Modal">
-          <img
-            src={this.props.largeImage}
-            className="modalImage"
-            alt="modal image"
-          />
+          <img src={this.props.largeImage} className="modalImage" alt="" />
         </div>
       </div>,
       this.modalRootEl

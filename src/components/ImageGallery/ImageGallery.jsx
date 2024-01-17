@@ -6,18 +6,16 @@ import '../../styles.css';
 class ImageGallery extends Component {
   state = { isModalOpen: false, modalImageURL: '' };
 
-  toggleModal = e => {
+  toggleModal = clickedImage => {
     this.setState({
       isModalOpen: !this.state.isModalOpen,
     });
-    if (e) {
-      const modalImage = e.target.attributes.largeimage.value;
-
+    if (clickedImage) {
       this.setState({
-        modalImageURL: modalImage,
+        modalImageURL: clickedImage.target.attributes.largeimage.value,
       });
 
-      return modalImage;
+      // return modalImage;
     }
   };
 
