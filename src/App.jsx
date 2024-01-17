@@ -18,7 +18,6 @@ export class App extends Component {
     total: 0,
     page: 1,
     loading: false,
-    isModalOpen: false,
   };
 
   getImages = async (request, page) => {
@@ -58,15 +57,15 @@ export class App extends Component {
     const nextPage = this.state.page + 1;
     this.setState({ page: nextPage });
   };
-  toggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen });
-  };
+  // toggleModal = () => {
+  //   this.setState({ isModalOpen: !this.state.isModalOpen });
+  // };
   render() {
     const { request, images, loading, total } = this.state;
     return (
       <div className="App">
         <SearchBar onSubmit={this.onSearchSubmit} />
-        <ImageGallery images={images} onClick={this.toggleModal} />
+        <ImageGallery images={images} />
         <ColorRing
           wrapperClass="color-ring-wrapper"
           visible={loading}

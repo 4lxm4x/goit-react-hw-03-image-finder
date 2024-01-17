@@ -169,7 +169,14 @@ img {
 
 .Modal {
   max-width: calc(100vw - 48px);
-  max-height: calc(100vh - 24px);
+  height: calc(100vh - 24px);
+}
+.modalImage {
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 100%;
+  height: 100%;
 }
 
 /*
