@@ -13,6 +13,7 @@ class ImageGallery extends Component {
               webformatURL={webformatURL}
               largeImageURL={largeImageURL}
               tags={tags}
+              onClick={this.props.onClick}
             />
           );
         })}

@@ -4,6 +4,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import LoadButton from 'components/Button/Button';
+
 import { ColorRing } from 'react-loader-spinner';
 
 const KEY = '40066874-c684fea7be1806c3f735d28e1';
@@ -11,7 +12,14 @@ axios.defaults.baseURL = 'https://pixabay.com/api';
 const PER_PAGE = 12;
 
 export class App extends Component {
-  state = { request: '', images: [], total: 0, page: 1, loading: false };
+  state = {
+    request: '',
+    images: [],
+    total: 0,
+    page: 1,
+    loading: false,
+    isModalOpen: false,
+  };
 
   getImages = async (request, page) => {
     const { data } = await axios.get(
@@ -50,13 +58,15 @@ export class App extends Component {
     const nextPage = this.state.page + 1;
     this.setState({ page: nextPage });
   };
-
+  toggleModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
   render() {
     const { request, images, loading, total } = this.state;
     return (
       <div className="App">
         <SearchBar onSubmit={this.onSearchSubmit} />
-        <ImageGallery images={images} />
+        <ImageGallery images={images} onClick={this.toggleModal} />
         <ColorRing
           wrapperClass="color-ring-wrapper"
           visible={loading}
