@@ -1,14 +1,10 @@
 import SearchBar from 'components/Searchbar/Searchbar';
 import './styles.css';
 import { Component } from 'react';
-import axios from 'axios';
+import * as API from './service/api';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import LoadButton from 'components/Button/Button';
 import { ColorRing } from 'react-loader-spinner';
-
-const KEY = '40066874-c684fea7be1806c3f735d28e1';
-axios.defaults.baseURL = 'https://pixabay.com/api';
-const PER_PAGE = 12;
 
 export class App extends Component {
   state = {
@@ -18,19 +14,11 @@ export class App extends Component {
     page: 1,
     loading: false,
   };
-
-  getImages = async (request, page) => {
-    const { data } = await axios.get(
-      `?q=${request}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`
-    );
-    const newImages = [...this.state.images, ...data.hits];
-
-    this.setState({ images: newImages, total: data.total, loading: false });
-  };
-
-  // componentDidMount() {
-  //   this.setState({ request: '' });
-  // }
+  async getImages(request, page) {
+    const { data } = await API.fetchImages(request, page);
+    const fetchedImages = [...this.state.images, ...data.hits];
+    this.setState({ images: fetchedImages, total: data.total, loading: false });
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const { request, page } = this.state;
@@ -65,10 +53,7 @@ export class App extends Component {
         <ImageGallery images={images} />
         <ColorRing wrapperClass="color-ring-wrapper" visible={loading} />
         {request && !loading && images.length !== total && (
-          <LoadButton
-            onLoadMore={this.loadMore}
-            disabled={images.length === total}
-          />
+          <LoadButton onLoadMore={this.loadMore} />
         )}
       </div>
     );

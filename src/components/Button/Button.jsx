@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 
-export default function LoadButton({ onLoadMore, disabled }) {
+export default function LoadButton({ onLoadMore }) {
   return (
-    <Button variant="contained" onClick={onLoadMore} disabled={disabled}>
+    <Button variant="contained" onClick={onLoadMore}>
       Load More
     </Button>
   );

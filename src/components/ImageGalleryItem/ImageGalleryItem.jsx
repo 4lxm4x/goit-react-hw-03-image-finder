@@ -8,12 +8,12 @@ export default function ImageGalleryItem({
   onClick,
 }) {
   return (
-    <li key={id} className="ImageGalleryItem">
+    <li className="ImageGalleryItem">
       <img
         src={webformatURL}
         alt={tags}
         className="ImageGalleryItem-image"
-        largeimage={largeImageURL}
+        largeimage={largeImageURL} // я не знал куда запхать URL большого изображения
         onClick={onClick}
       />
     </li>

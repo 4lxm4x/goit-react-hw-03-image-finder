@@ -12,18 +12,10 @@ class ImageGallery extends Component {
     });
     if (clickedImage) {
       this.setState({
-        modalImageURL: clickedImage.target.attributes.largeimage.value,
+        modalImageURL: clickedImage.target.attributes.largeimage.value, // отут макаронина просто треш. но я не знаю куда запхать URL большого изображения
         modalAlt: clickedImage.target.alt,
       });
-
-      // return modalImage;
     }
-
-    document.addEventListener('keydown', key => {
-      if (key.code === 'Escape') {
-        this.setState({ isModalOpen: false });
-      }
-    });
   };
 
   render() {
@@ -34,7 +26,7 @@ class ImageGallery extends Component {
             ({ id, webformatURL, largeImageURL, tags }) => {
               return (
                 <ImageGalleryItem
-                  id={id}
+                  key={id}
                   webformatURL={webformatURL}
                   largeImageURL={largeImageURL}
                   tags={tags}
@@ -49,6 +41,7 @@ class ImageGallery extends Component {
             largeImage={this.state.modalImageURL}
             onOverlayClick={this.toggleModal}
             alt={this.state.modalAlt}
+            onClose={close => this.setState({ isModalOpen: close })}
           />
         )}
       </div>
