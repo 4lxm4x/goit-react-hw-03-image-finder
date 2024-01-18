@@ -7,9 +7,12 @@ class ImageGallery extends Component {
   state = { isModalOpen: false, modalImageURL: '', modalAlt: '' };
 
   toggleModal = clickedImage => {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen,
+    this.setState(prevState => {
+      return {
+        isModalOpen: !prevState.isModalOpen,
+      };
     });
+
     if (clickedImage) {
       this.setState({
         modalImageURL: clickedImage.target.attributes.largeimage.value, // отут макаронина просто треш. но я не знаю куда запхать URL большого изображения

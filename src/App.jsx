@@ -17,7 +17,9 @@ export class App extends Component {
   async getImages(request, page) {
     const { data } = await API.fetchImages(request, page);
     const fetchedImages = [...this.state.images, ...data.hits];
-    this.setState({ images: fetchedImages, total: data.total, loading: false });
+    this.setState(prevState => {
+      return { images: fetchedImages, total: data.total, loading: false };
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -41,8 +43,9 @@ export class App extends Component {
   };
 
   loadMore = () => {
-    const nextPage = this.state.page + 1;
-    this.setState({ page: nextPage });
+    this.setState(prevState => {
+      return { page: prevState.page + 1 };
+    });
   };
 
   render() {
