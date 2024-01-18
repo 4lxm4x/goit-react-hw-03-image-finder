@@ -56,9 +56,7 @@ export class App extends Component {
     const nextPage = this.state.page + 1;
     this.setState({ page: nextPage });
   };
-  // toggleModal = () => {
-  //   this.setState({ isModalOpen: !this.state.isModalOpen });
-  // };
+
   render() {
     const { request, images, loading, total } = this.state;
     return (

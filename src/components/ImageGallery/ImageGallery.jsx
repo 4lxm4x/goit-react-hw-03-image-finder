@@ -4,7 +4,7 @@ import { Component } from 'react';
 import '../../styles.css';
 
 class ImageGallery extends Component {
-  state = { isModalOpen: false, modalImageURL: '' };
+  state = { isModalOpen: false, modalImageURL: '', modalAlt: '' };
 
   toggleModal = clickedImage => {
     this.setState({
@@ -13,10 +13,17 @@ class ImageGallery extends Component {
     if (clickedImage) {
       this.setState({
         modalImageURL: clickedImage.target.attributes.largeimage.value,
+        modalAlt: clickedImage.target.alt,
       });
 
       // return modalImage;
     }
+
+    document.addEventListener('keydown', key => {
+      if (key.code === 'Escape') {
+        this.setState({ isModalOpen: false });
+      }
+    });
   };
 
   render() {
@@ -41,6 +48,7 @@ class ImageGallery extends Component {
           <Modal
             largeImage={this.state.modalImageURL}
             onOverlayClick={this.toggleModal}
+            alt={this.state.modalAlt}
           />
         )}
       </div>
