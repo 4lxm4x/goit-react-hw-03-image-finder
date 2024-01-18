@@ -13,16 +13,16 @@ class Modal extends Component {
     });
   }
 
-  onCloseClick = e => {
+  onOverlayClick = e => {
     if (e.currentTarget === e.target) {
-      this.props.onCloseClick();
+      this.props.onOverlayClick();
     }
   };
 
   render() {
     return createPortal(
-      <div className="Overlay" onClick={this.onCloseClick}>
-        <div className="Modal" onClick={this.onCloseClick}>
+      <div className="Overlay" onClick={this.onOverlayClick}>
+        <div className="Modal" onClick={this.onOverlayClick}>
           <img
             src={this.props.largeImage}
             className="modalImage"
