@@ -16,25 +16,38 @@ export class App extends Component {
   };
   async getImages(request, page) {
     const { data } = await API.fetchImages(request, page);
-    const fetchedImages = [...this.state.images, ...data.hits];
+    console.log(`fetched ${page} page`);
+
+    // const fetchedImages = [...this.state.images, ...data.hits];
     this.setState(prevState => {
-      return { images: fetchedImages, total: data.total, loading: false };
+      return {
+        images: [...prevState.images, ...data.hits],
+        total: data.total,
+        loading: false,
+      };
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('updated');
     const { request, page } = this.state;
     const changedRequest = prevState.request !== request;
     const changedPage = prevState.page !== page;
-    if (changedRequest) {
-      this.setState({ images: [], page: 1, loading: true });
 
-      this.getImages(request, page);
-    }
-    if (changedPage && !changedRequest) {
+    if (changedRequest) {
+      console.log(
+        '🚀 ~ App ~ componentDidUpdate ~ changedRequest:',
+        this.state
+      );
+
+      return this.setState({ images: [], page: 1, loading: true }, () => {
+        console.log('after setstate', this.state);
+        this.getImages(request, page);
+      });
+    } else if (changedPage) {
+      console.log('🚀 ~ App ~ componentDidUpdate ~ changedPage:', this.state);
       this.getImages(request, page);
       this.setState({ loading: true });
-      console.log(this.state.loading);
     }
   }
 
