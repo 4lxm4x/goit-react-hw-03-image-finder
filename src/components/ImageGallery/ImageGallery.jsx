@@ -6,19 +6,22 @@ import '../../styles.css';
 class ImageGallery extends Component {
   state = { isModalOpen: false, modalImageURL: '', modalAlt: '' };
 
-  toggleModal = clickedImage => {
+  toggleModal = () => {
     this.setState(prevState => {
       return {
         isModalOpen: !prevState.isModalOpen,
       };
     });
+  };
 
-    if (clickedImage) {
-      this.setState({
-        modalImageURL: clickedImage.target.attributes.largeimage.value, // отут макаронина просто треш. но я не знаю куда запхать URL большого изображения
-        modalAlt: clickedImage.target.alt,
-      });
-    }
+  handleImageClick = (largeImageURL, tags) => {
+    this.setState(
+      {
+        modalImageURL: largeImageURL,
+        modalAlt: tags,
+      },
+      () => this.toggleModal()
+    );
   };
 
   render() {
@@ -33,7 +36,7 @@ class ImageGallery extends Component {
                   webformatURL={webformatURL}
                   largeImageURL={largeImageURL}
                   tags={tags}
-                  onClick={this.toggleModal}
+                  onClick={() => this.handleImageClick(largeImageURL, tags)}
                 />
               );
             }

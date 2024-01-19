@@ -1,4 +1,6 @@
 import SearchBar from 'components/Searchbar/Searchbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 import { Component } from 'react';
 import * as API from './service/api';
@@ -16,9 +18,7 @@ export class App extends Component {
   };
   async getImages(request, page) {
     const { data } = await API.fetchImages(request, page);
-    console.log(`fetched ${page} page`);
 
-    // const fetchedImages = [...this.state.images, ...data.hits];
     this.setState(prevState => {
       return {
         images: [...prevState.images, ...data.hits],
@@ -29,35 +29,34 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('updated');
-    const { request, page } = this.state;
+    let { request, page } = this.state;
     const changedRequest = prevState.request !== request;
-    const changedPage = prevState.page !== page;
+    const changedPage = prevState.page < page;
 
     if (changedRequest) {
-      console.log(
-        '🚀 ~ App ~ componentDidUpdate ~ changedRequest:',
-        this.state
-      );
-
       return this.setState({ images: [], page: 1, loading: true }, () => {
-        console.log('after setstate', this.state);
-        this.getImages(request, page);
+        this.getImages(this.state.request, this.state.page);
       });
     } else if (changedPage) {
-      console.log('🚀 ~ App ~ componentDidUpdate ~ changedPage:', this.state);
-      this.getImages(request, page);
+      this.getImages(this.state.request, this.state.page);
       this.setState({ loading: true });
     }
   }
 
   onSearchSubmit = request => {
+    this.notify();
     this.setState({ request });
   };
 
   loadMore = () => {
     this.setState(prevState => {
       return { page: prevState.page + 1 };
+    });
+  };
+
+  notify = () => {
+    toast.success('Thank You for checking my Homework!!!', {
+      position: 'top-right',
     });
   };
 
@@ -71,6 +70,7 @@ export class App extends Component {
         {request && !loading && images.length !== total && (
           <LoadButton onLoadMore={this.loadMore} />
         )}
+        <ToastContainer />
       </div>
     );
   }
